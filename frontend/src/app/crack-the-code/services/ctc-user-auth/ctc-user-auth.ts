@@ -3,13 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Observable, of} from "rxjs";
 import {catchError, map} from "rxjs/operators";
-import {LoginUserRequest, RegisterUserRequest} from "../../models";
-import LoginSuccessResponse from "../../models/loginSuccessResponse";
+import {CtcApiResponse, LoginSuccessResponse, LoginUserRequest, RegisterUserRequest} from "../../models";
 
-
-type CtcApiResponse<T = unknown> =
-  | { ok: true; data?: T }
-  | { ok: false; error: string };
 @Injectable({
   providedIn: 'root',
 })
