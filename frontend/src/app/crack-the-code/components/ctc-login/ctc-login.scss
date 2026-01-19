@@ -1,0 +1,54 @@
+.auth-container {
+  min-height:  calc(100vh - 40%);
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .form-container {
+    width: 30%;
+  }
+  .logo-container{
+    padding: 20px;
+    margin-bottom: 30px;
+    .logo-image{
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .login, .register{
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    .login-form, .signup-form {
+      display: flex;
+      margin-top: 20px;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .login-btn, signup-btn {
+      margin-top: 15px;
+    }
+    .login-helper{
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .password-reset{
+        cursor: pointer;
+      }
+      .signup{
+        cursor: pointer;
+      }
+    }
+    .signup-helper{
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      .signin{
+        cursor: pointer;
+      }
+    }
+  }
+}
