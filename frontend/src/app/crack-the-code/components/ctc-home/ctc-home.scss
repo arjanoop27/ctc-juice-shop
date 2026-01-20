@@ -1,0 +1,11 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.fallback {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 16px;
+}

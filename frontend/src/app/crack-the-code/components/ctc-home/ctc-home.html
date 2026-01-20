@@ -1,11 +1,14 @@
-<p>ctc-home works!</p>
+<ng-container *ngIf="user$ | async as user; else loading">
+  <app-ctc-home-narrative *ngIf="user.ctcMode === 'narrative'"></app-ctc-home-narrative>
+  <app-ctc-home-vanilla *ngIf="user.ctcMode === 'vanilla'"></app-ctc-home-vanilla>
 
-<div *ngIf="user$ | async as user; else notLoggedIn">
-  <h2>Welcome, {{ user.username }}</h2>
-  <p>UserId: {{ user.userId }}</p>
-  <p>Mode: {{ user.ctcMode }}</p>
-</div>
+  <div *ngIf="user.ctcMode !== 'narrative' && user.ctcMode !== 'vanilla'" class="fallback">
+    Unknown mode: {{ user.ctcMode }}
+  </div>
+</ng-container>
 
-<ng-template #notLoggedIn>
-  <p>No user loaded.</p>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner diameter="36"></mat-spinner>
+  </div>
 </ng-template>
