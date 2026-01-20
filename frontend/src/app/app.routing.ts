@@ -46,6 +46,8 @@ import { ScoreBoardComponent } from './score-board/score-board.component'
 import {CtcApp} from "./crack-the-code/components/ctc-app/ctc-app";
 import {CtcLogin} from "./crack-the-code/components/ctc-login/ctc-login";
 import {CtcHome} from "./crack-the-code/components/ctc-home/ctc-home";
+import {CtcAuthGuard} from "./crack-the-code/helpers/ctc-auth.guard";
+import {CtcGuestGuard} from "./crack-the-code/helpers/ctc-guest.guard";
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -73,12 +75,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: CtcLogin
+        component: CtcLogin,
+        canActivate: [CtcGuestGuard]
       },
       {
         path: 'home',
         component: CtcHome,
-        // canActivate: [CtcAuthGuard]
+        canActivate: [CtcAuthGuard]
       },
       // {
       //   path: 'mission',
