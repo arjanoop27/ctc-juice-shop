@@ -9,7 +9,8 @@
 
 export const environment = {
   production: false,
-  hostServer: 'http://localhost:3000'
+  hostServer: 'http://localhost:3000',
+  ctcBffServer: 'http://localhost:4000'
 }
 
 /*

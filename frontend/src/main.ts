@@ -83,6 +83,8 @@ import { ProductService } from './app/Services/product.service';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { RequestInterceptor } from './app/Services/request.interceptor';
 import { HTTP_INTERCEPTORS, HttpClient, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import {CredentialsInterceptor} from "./app/crack-the-code/helpers/ctc-interceptor";
+import {AuthRefreshInterceptor} from "./app/crack-the-code/helpers/auth-refresh.interceptor";
 
 if (environment.production) {
   enableProdMode()
@@ -102,6 +104,9 @@ bootstrapApplication(AppComponent, {
             useClass: RequestInterceptor,
             multi: true
         },
+        { provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthRefreshInterceptor, multi: true },
+
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {

@@ -1,0 +1,11 @@
+<p>ctc-home works!</p>
+
+<div *ngIf="user$ | async as user; else notLoggedIn">
+  <h2>Welcome, {{ user.username }}</h2>
+  <p>UserId: {{ user.userId }}</p>
+  <p>Mode: {{ user.ctcMode }}</p>
+</div>
+
+<ng-template #notLoggedIn>
+  <p>No user loaded.</p>
+</ng-template>
