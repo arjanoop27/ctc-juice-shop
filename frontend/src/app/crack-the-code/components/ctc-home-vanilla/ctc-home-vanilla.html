@@ -1,0 +1,59 @@
+<div class="ctc-vanilla">
+  <ng-container *ngIf="stats$ | async as s; else loading">
+    <div class="top-grid">
+      <mat-card class="tile tile-hacking">
+        <div class="tile-title">Hacking Challenges</div>
+        <div class="tile-value">{{ s.hackingPct }}%</div>
+        <mat-progress-bar mode="determinate" [value]="s.hackingPct"></mat-progress-bar>
+        <div class="tile-sub">{{ s.hackingSolved }}/{{ s.hackingTotal }} solved</div>
+      </mat-card>
+
+      <div class="top-spacer"></div>
+
+      <div class="top-spacer"></div>
+
+      <div class="top-search">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search</mat-label>
+          <input matInput (input)="onSearch($any($event.target).value)" placeholder="Search challenges">
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="cards-grid" *ngIf="filteredChallenges$ | async as challenges">
+      <mat-card class="challenge-card" *ngFor="let c of challenges">
+        <div class="card-top">
+          <div class="cat">{{ c.category }}</div>
+
+          <div class="difficulty" aria-label="Difficulty">
+            <ng-container *ngFor="let _ of stars(c.difficulty)">
+              <mat-icon class="star">star</mat-icon>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="name">{{ c.name }}</div>
+        <div class="desc">{{ c.description }}</div>
+
+        <div class="tags" *ngIf="c.tags?.length">
+          <mat-chip-set>
+            <mat-chip *ngFor="let t of c.tags.slice(0,3)">{{ t }}</mat-chip>
+          </mat-chip-set>
+        </div>
+
+        <div class="actions">
+          <button mat-stroked-button color="primary" (click)="startChallenge(c)">
+            Start
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="loading">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  </ng-template>
+</div>

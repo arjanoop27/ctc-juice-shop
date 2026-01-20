@@ -2,8 +2,8 @@ export default interface CtcChallenge {
   _id: string;
   name: string;
   description: string
-  category?: string
+  category: string
   difficulty?: number
-  tags?: string[]
+  tags: string[]
   solved?: boolean;
 }
