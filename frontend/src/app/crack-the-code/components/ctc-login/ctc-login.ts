@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {CtcUserAuth} from "../../services/ctc-user-auth/ctc-user-auth";
 import RegisterUserRequest from "../../models/registerUserRequest";
 import {LoginUserRequest} from "../../models";
+import {CtcSession} from "../../services/ctc-session/ctc-session";
 
 @Component({
   selector: 'app-ctc-login',
@@ -25,7 +26,7 @@ export class CtcLogin {
   hideSignUpPassword = true;
   hideConfirmPassword = true;
 
-  constructor(private fb: FormBuilder, private router: Router, private ctcUserAuth: CtcUserAuth) {
+  constructor(private fb: FormBuilder, private router: Router, private ctcUserAuth: CtcUserAuth, private session: CtcSession) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
@@ -44,8 +45,6 @@ export class CtcLogin {
     }, {
       validators: this.passwordMatchValidator
     });
-    // TODO: Uncomment the line below after enabling token validation on component initialization
-    // this.validateAndRedirect();
   }
 
   onLogin() {
@@ -94,11 +93,6 @@ export class CtcLogin {
     return password === confirmPassword ? null : {passwordMismatch: true};
   }
 
-  private validateAndRedirect(){
-    //TODO: check for Token validity
-    this.redirectToHome()
-  }
-
   private redirectToHome() {
     this.router.navigate(['/ctc/home']).then((result:boolean)=>{
       if(!result){
@@ -110,8 +104,13 @@ export class CtcLogin {
   private handleLogin(payload: LoginUserRequest) {
     this.ctcUserAuth.login(payload).subscribe((token: string | null) => {
       if(token!==null){
-        console.log(`Login successful. Token: ${token}`);
-        this.redirectToHome();
+        this.session.loadMe().subscribe((user) => {
+          if (user) {
+            this.redirectToHome()
+          } else {
+            this.router.navigate(['/ctc'])
+          }
+        })
       }
     });
   }
