@@ -3,20 +3,22 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, inject } from '@angular/core'
-import { TranslateService } from '@ngx-translate/core'
+import {Component, inject} from '@angular/core'
+import {TranslateService} from '@ngx-translate/core'
 import {CommonModule, DOCUMENT} from '@angular/common'
-import { dom } from '@fortawesome/fontawesome-svg-core'
+import {dom} from '@fortawesome/fontawesome-svg-core'
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router'
-import { WelcomeComponent } from './welcome/welcome.component'
-import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification/challenge-solved-notification.component'
-import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
-import { NavbarComponent } from './navbar/navbar.component'
-import { SidenavComponent } from './sidenav/sidenav.component'
-import { MatSidenavContainer, MatSidenav } from '@angular/material/sidenav'
+import {WelcomeComponent} from './welcome/welcome.component'
+import {
+  ChallengeSolvedNotificationComponent
+} from './challenge-solved-notification/challenge-solved-notification.component'
+import {ServerStartedNotificationComponent} from './server-started-notification/server-started-notification.component'
+import {SidenavComponent} from './sidenav/sidenav.component'
+import {MatSidenavContainer, MatSidenav} from '@angular/material/sidenav'
 import {CtcSession} from "./crack-the-code/services/ctc-session/ctc-session";
 import {combineLatest, Observable, startWith} from "rxjs";
 import {filter, map} from "rxjs/operators";
+import {CtcNavbar} from "./crack-the-code/components/ctc-navbar/ctc-navbar";
 
 dom.watch()
 
@@ -24,7 +26,7 @@ dom.watch()
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, WelcomeComponent, RouterOutlet, CommonModule]
+  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, CtcNavbar, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, WelcomeComponent, RouterOutlet, CommonModule]
 })
 export class AppComponent {
   private readonly _document = inject<HTMLDocument>(DOCUMENT);
@@ -34,7 +36,7 @@ export class AppComponent {
 
   showChrome$: Observable<boolean>
 
-  constructor () {
+  constructor() {
     this.translate.setDefaultLang('en')
 
     const url$ = this.router.events.pipe(
