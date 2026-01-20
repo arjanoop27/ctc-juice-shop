@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {CtcUserAuth} from "../../services/ctc-user-auth/ctc-user-auth";
 import {CtcSession} from "../../services/ctc-session/ctc-session";
 import {Observable} from "rxjs";
 import {UserDetail} from "../../models";

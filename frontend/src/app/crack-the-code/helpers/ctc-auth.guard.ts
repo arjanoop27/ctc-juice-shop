@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { CanActivate, Router, UrlTree } from '@angular/router'
 import { Observable, of } from 'rxjs'
-import { map, switchMap, take } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import {CtcSession} from "../services/ctc-session/ctc-session";
 
 @Injectable({ providedIn: 'root' })
