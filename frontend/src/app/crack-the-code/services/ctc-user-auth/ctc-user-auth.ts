@@ -32,6 +32,15 @@ export class CtcUserAuth {
       );
   }
 
+  logout(): Observable<boolean> {
+    return this.http
+      .post<CtcApiResponse>(this.host + '/logout', {})
+      .pipe(
+        map(res => res.ok === true),
+        catchError(() => of(false))
+      )
+  }
+
   me(): Observable<UserDetail> {
     return this.http
       .get<CtcApiResponse<UserDetail>>(this.host + '/me')

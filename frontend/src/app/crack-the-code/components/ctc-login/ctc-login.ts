@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import {MatCardModule} from "@angular/material/card";
@@ -15,6 +15,7 @@ import {CtcSession} from "../../services/ctc-session/ctc-session";
 @Component({
   selector: 'app-ctc-login',
   imports: [CommonModule, MatCardModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule],
+  standalone: true,
   templateUrl: './ctc-login.html',
   styleUrl: './ctc-login.scss',
 })
@@ -22,7 +23,7 @@ export class CtcLogin {
   signInForm: FormGroup;
   signUpForm: FormGroup;
   showSignup = false;
-  hideSignInPassword: boolean = true;
+  hideSignInPassword = true;
   hideSignUpPassword = true;
   hideConfirmPassword = true;
 
@@ -49,19 +50,36 @@ export class CtcLogin {
 
   onLogin() {
     if (this.signInForm.valid) {
-      const {email, password} = this.signInForm.value;
-      const payload:LoginUserRequest = {email, password};
+      const {
+        email,
+        password
+      } = this.signInForm.value;
+      const payload: LoginUserRequest = {
+        email,
+        password
+      };
       this.handleLogin(payload);
     }
   }
 
   onSignup() {
     if (this.signUpForm.valid) {
-      const {username, password, email} = this.signUpForm.value;
-      const payload:RegisterUserRequest = {username, password, email};
-      this.ctcUserAuth.register(payload).subscribe((success:boolean)=>{
-        if(success){
-          this.handleLogin({email, password});
+      const {
+        username,
+        password,
+        email
+      } = this.signUpForm.value;
+      const payload: RegisterUserRequest = {
+        username,
+        password,
+        email
+      };
+      this.ctcUserAuth.register(payload).subscribe((success: boolean) => {
+        if (success) {
+          this.handleLogin({
+            email,
+            password
+          });
         }
       });
     }
@@ -94,8 +112,8 @@ export class CtcLogin {
   }
 
   private redirectToHome() {
-    this.router.navigate(['/ctc/home']).then((result:boolean)=>{
-      if(!result){
+    this.router.navigate(['/ctc/home']).then((result: boolean) => {
+      if (!result) {
         console.error("Token Expired!");
       }
     });
@@ -103,7 +121,7 @@ export class CtcLogin {
 
   private handleLogin(payload: LoginUserRequest) {
     this.ctcUserAuth.login(payload).subscribe((token: string | null) => {
-      if(token!==null){
+      if (token !== null) {
         this.session.loadMe().subscribe((user) => {
           if (user) {
             this.redirectToHome()

@@ -4,12 +4,14 @@
   -->
 
 <mat-sidenav-container fullscreen>
-  <mat-sidenav #sidenav mode="over">
-    <sidenav (sidenavToggle)="sidenav.toggle()"></sidenav>
-  </mat-sidenav>
-  <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
-  <app-server-started-notification></app-server-started-notification>
-  <app-challenge-solved-notification></app-challenge-solved-notification>
-  <app-welcome></app-welcome>
+  <ng-container *ngIf="showChrome$ | async">
+    <mat-sidenav #sidenav mode="over">
+      <sidenav (sidenavToggle)="sidenav.toggle()"></sidenav>
+    </mat-sidenav>
+    <app-ctc-navbar></app-ctc-navbar>
+    <app-server-started-notification></app-server-started-notification>
+    <app-challenge-solved-notification></app-challenge-solved-notification>
+    <app-welcome></app-welcome>
+  </ng-container>
   <router-outlet></router-outlet>
 </mat-sidenav-container>

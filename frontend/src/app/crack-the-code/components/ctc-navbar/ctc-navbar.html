@@ -1,0 +1,28 @@
+<mat-toolbar class="ctc-toolbar" color="primary">
+  <button mat-button class="logo-btn" (click)="goHome()" aria-label="Go to CTC Home">
+    <span style="display:inline-flex; align-items:center; gap:10px;">
+      <img
+        class="logo"
+        src="../../../../assets/public/images/crack-the-code/CTC_navbar.png"
+        alt="CTC Logo"
+        style="display:block;"
+      />
+      <span class="title hide-lt-sm">Crack The Code</span>
+    </span>
+  </button>
+  <span class="spacer"></span>
+  <ng-container *ngIf="user$ | async as user">
+    <span class="mode-pill" aria-label="User mode">
+      {{ user.ctcMode }}
+    </span>
+    <button
+      mat-icon-button
+      (click)="logout()"
+      aria-label="Logout"
+      matTooltip="Logout"
+      matTooltipPosition="below"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </ng-container>
+</mat-toolbar>
