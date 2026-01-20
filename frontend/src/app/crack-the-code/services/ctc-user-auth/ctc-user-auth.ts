@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Observable, of} from "rxjs";
 import {catchError, map} from "rxjs/operators";
-import {CtcApiResponse, LoginSuccessResponse, LoginUserRequest, RegisterUserRequest} from "../../models";
+import {CtcApiResponse, LoginSuccessResponse, LoginUserRequest, RegisterUserRequest, UserDetail} from "../../models";
 
 @Injectable({
   providedIn: 'root',
@@ -31,4 +31,16 @@ export class CtcUserAuth {
         catchError(() => of(false))
       );
   }
+
+  me(): Observable<UserDetail> {
+    return this.http
+      .get<CtcApiResponse<UserDetail>>(this.host + '/me')
+      .pipe(
+        map((res) => {
+          if (!res.ok) throw new Error('Unauthorized')
+          return res.data
+        })
+      )
+  }
+
 }
