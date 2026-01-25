@@ -12,10 +12,11 @@ import {Router} from "@angular/router";
 import {Observable, tap} from "rxjs";
 import {filter, map, switchMap} from "rxjs/operators";
 import {CtcHint, CtcSubMission, CtcSubMissionDetails} from "../../models";
+import {CtcChallenge} from "../ctc-challenge/ctc-challenge";
 
 @Component({
     selector: 'app-ctc-submission',
-    imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatExpansionModule, MatProgressSpinnerModule, MatDividerModule],
+    imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatExpansionModule, MatProgressSpinnerModule, MatDividerModule, CtcChallenge],
     standalone: true,
     templateUrl: './ctc-submission.html',
     styleUrl: './ctc-submission.scss',

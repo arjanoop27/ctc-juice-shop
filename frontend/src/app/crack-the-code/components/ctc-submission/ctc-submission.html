@@ -69,13 +69,7 @@
             <div class="launchpad">
                 <div class="launchpad-body">
                     <ng-container *ngIf="selected$ | async as n">
-                        <div class="placeholder">
-                            <div class="placeholder-title">Challenge placeholder</div>
-                            <div class="placeholder-sub">
-                                Associated Challenge ID:
-                                <span class="mono">{{ n.associatedChallengeId }}</span>
-                            </div>
-                        </div>
+                        <app-ctc-challenge></app-ctc-challenge>
                     </ng-container>
                 </div>
             </div>

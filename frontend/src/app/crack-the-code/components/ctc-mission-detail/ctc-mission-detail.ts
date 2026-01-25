@@ -10,6 +10,7 @@ import {switchMap} from "rxjs/operators";
 import {CtcMission, CtcSubMission} from "../../models";
 import {MatDividerModule} from "@angular/material/divider";
 import {CtcNarrativeSelection} from "../../services/ctc-narrative-selection/ctc-narrative-selection";
+import {CtcCurrentSelection} from "../../services/ctc-current-selection/ctc-current-selection";
 
 @Component({
     selector: 'app-ctc-mission-detail',
@@ -22,6 +23,7 @@ export class CtcMissionDetail {
     private readonly router = inject(Router)
     private readonly api = inject(CtcNarrative)
     private readonly selection = inject(CtcNarrativeSelection)
+    private readonly currentChallenge = inject(CtcCurrentSelection)
 
     private readonly mission: CtcMission | null =
         (this.router.getCurrentNavigation()?.extras.state as any)?.mission
@@ -39,6 +41,7 @@ export class CtcMissionDetail {
     openSubMission(sm: CtcSubMission): void {
         if (this.isLocked(sm)) return
         this.selection.setSubMission(sm)
+        this.currentChallenge.setCurrentChallenge({challengeId: sm.associatedChallengeId, ctcMode: 'narrative'})
         this.router.navigate(['/ctc/submission'])
     }
 
