@@ -52,6 +52,7 @@ import {
     CtcMissionDetail
 } from "./crack-the-code/components/ctc-mission-detail/ctc-mission-detail";
 import {CtcSubmission} from "./crack-the-code/components/ctc-submission/ctc-submission";
+import {CtcVanillaMission} from "./crack-the-code/components/ctc-vanilla-mission/ctc-vanilla-mission";
 
 const loadFaucetModule = async () => {
     const module = await import('./faucet/faucet.module')
@@ -96,7 +97,13 @@ const routes: Routes = [
                 path: 'submission',
                 component: CtcSubmission,
                 canActivate: [CtcAuthGuard]
+            },
+            {
+                path: 'challenge',
+                component: CtcVanillaMission,
+                canActivate: [CtcAuthGuard]
             }
+
         ]
     },
     { // vuln-code-snippet neutral-line adminSectionChallenge
