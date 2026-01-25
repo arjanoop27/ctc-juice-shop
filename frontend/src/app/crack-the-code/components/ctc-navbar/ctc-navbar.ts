@@ -10,39 +10,47 @@ import {UserDetail} from "../../models";
 import {CtcSession} from "../../services/ctc-session/ctc-session";
 import {Router} from "@angular/router";
 import {map} from "rxjs/operators";
+import {CtcNarrativeSelection} from "../../services/ctc-narrative-selection/ctc-narrative-selection";
 
 @Component({
-  selector: 'app-ctc-navbar',
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule, NgOptimizedImage],
-  standalone: true,
-  templateUrl: './ctc-navbar.html',
-  styleUrl: './ctc-navbar.scss',
+    selector: 'app-ctc-navbar',
+    imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule, NgOptimizedImage],
+    standalone: true,
+    templateUrl: './ctc-navbar.html',
+    styleUrl: './ctc-navbar.scss',
 })
 export class CtcNavbar {
-  user$: Observable<UserDetail | null>
-  modeLabel$: Observable<string>
+    user$: Observable<UserDetail | null>
+    modeLabel$: Observable<string>
 
-  constructor(private readonly session: CtcSession, private readonly router: Router, private readonly auth: CtcUserAuth) {
-    this.user$ = this.session.getUser$()
-    this.modeLabel$ = this.user$.pipe(
-      map(u => (u?.ctcMode ? u.ctcMode.toUpperCase() : ''))
-    )
-  }
+    constructor(private readonly session: CtcSession, private readonly router: Router, private readonly auth: CtcUserAuth, private readonly narrative: CtcNarrativeSelection, private current: CtcNarrativeSelection) {
+        this.user$ = this.session.getUser$()
+        this.modeLabel$ = this.user$.pipe(
+            map(u => (u?.ctcMode ? u.ctcMode.toUpperCase() : ''))
+        )
+    }
 
-  goHome(): void {
-    this.router.navigate(['/ctc/home'])
-  }
+    goHome(): void {
+        this.clearCurrentSelection()
+        this.router.navigate(['/ctc/home'])
+    }
 
-  logout(): void {
-    this.auth.logout().subscribe({
-      next: () => {
-        this.session.clear()
-        this.router.navigate(['/ctc'])
-      },
-      error: () => {
-        this.session.clear()
-        this.router.navigate(['/ctc'])
-      }
-    })
-  }
+    logout(): void {
+        this.clearCurrentSelection()
+        this.auth.logout().subscribe({
+            next: () => {
+                this.session.clear()
+                this.router.navigate(['/ctc'])
+            },
+            error: () => {
+                this.session.clear()
+                this.router.navigate(['/ctc'])
+            }
+        })
+    }
+
+    clearCurrentSelection() {
+        this.current.clear()
+        this.narrative.clear()
+    }
 }
