@@ -13,10 +13,11 @@ import {Router} from "@angular/router";
 import {BehaviorSubject, combineLatest, Observable, startWith} from "rxjs";
 import {CtcChallenge} from "../../models";
 import {map} from "rxjs/operators";
+import {MatDivider} from "@angular/material/divider";
 
 @Component({
   selector: 'app-ctc-home-vanilla',
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatChipsModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatChipsModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatDivider],
   standalone: true,
   templateUrl: './ctc-home-vanilla.html',
   styleUrl: './ctc-home-vanilla.scss',
