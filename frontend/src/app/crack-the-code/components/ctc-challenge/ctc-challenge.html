@@ -1,0 +1,13 @@
+<ng-container *ngIf="currentChallenge$ | async as cc">
+    <div class="placeholder">
+        <div class="placeholder-title">Challenge placeholder</div>
+        <div class="placeholder-sub">
+            Associated Challenge ID:
+            <span class="mono">{{ cc.challengeId }}</span>
+        </div>
+        <div class="placeholder-sub">
+            CTC Mode:
+            <span class="mono">{{ cc.ctcMode }}</span>
+        </div>
+    </div>
+</ng-container>
