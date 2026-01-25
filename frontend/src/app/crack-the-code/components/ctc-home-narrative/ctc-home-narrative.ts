@@ -29,23 +29,6 @@ export class CtcHomeNarrative {
     theme$: Observable<CtcActiveTheme | null> = this.api.getActiveTheme()
     missions$: Observable<CtcMission[]> = this.api.getMissions()
 
-    radar$ = this.missions$.pipe(
-        map((missions) => {
-            const labels = missions
-                .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                .map(m => m.title)
-
-            const values = missions
-                .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                .map(m => (String(m.status || '').toLowerCase() === 'active' ? 70 : 30))
-
-            return {
-                labels,
-                values
-            }
-        })
-    )
-
     openMission(mission: CtcMission) {
         this.router.navigate(['/ctc/mission'], {
             state: {mission}
