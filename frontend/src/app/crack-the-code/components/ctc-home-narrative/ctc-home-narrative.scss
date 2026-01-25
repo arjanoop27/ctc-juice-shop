@@ -1,0 +1,250 @@
+.ctc-dashboard {
+  padding: 22px;
+  display: grid;
+  gap: 22px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.briefing {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.headline .title {
+  margin: 20px 0px;
+}
+
+.headline .subtitle {
+  opacity: 0.8;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.welcome {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.campaign-title {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.campaign-brief {
+  margin-top: 10px;
+}
+
+.campaign-brief .msg {
+  margin: 10px 0;
+  opacity: 0.88;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.loading-inline {
+  padding: 18px 0;
+}
+
+.radar-card {
+  padding: 14px;
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.radar-title {
+  font-weight: 700;
+}
+
+.radar-sub {
+  opacity: 0.75;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.radar-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  padding-top: 14px;
+  align-items: center;
+}
+
+.radar-svg svg {
+  width: 240px;
+  height: 240px;
+  display: block;
+}
+
+.radar-labels {
+  display: grid;
+  gap: 10px;
+}
+
+.label-row {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(0, 255, 255, 0.9);
+}
+
+.value {
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.bottom .section-title {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.mission-card {
+  position: relative;
+  height: 240px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+.mission-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  display: block;
+  filter: saturate(1.05);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.10));
+}
+
+.mission-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.mission-sub {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.85;
+  max-width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.pill {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.empty {
+  padding: 16px 0;
+  opacity: 0.75;
+}
+
+/* Responsive */
+@media (max-width: 2000px) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+  .radar-wrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+@media (max-width: 3200px) {
+  .mission-grid {
+    grid-template-columns: repeat(5, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 2400px) {
+  .mission-grid {
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 1600px) {
+  .mission-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .mission-grid {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .mission-grid {
+    grid-template-columns: 1fr;
+  }
+}

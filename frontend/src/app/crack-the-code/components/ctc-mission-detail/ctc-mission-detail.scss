@@ -1,0 +1,211 @@
+.mission-page {
+  padding: 22px;
+  display: grid;
+  gap: 18px;
+}
+
+/* Mission hero (like ctc-home-narrative cards but bigger) */
+.mission-hero {
+  position: relative;
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.10));
+}
+
+.hero-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.hero-sub {
+  margin-top: 6px;
+  opacity: 0.85;
+  font-size: 13px;
+  max-width: 920px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.subs-card {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.subs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.subs-title {
+  font-weight: 800;
+}
+
+.subs-subtitle {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* Sub-mission grid (same style language as narrative dashboard cards) */
+.subs-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.sub-card {
+  position: relative;
+  height: 240px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.sub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+.sub-card.locked {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.sub-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.sub-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.10));
+}
+
+.sub-top {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.sub-title {
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.sub-objective {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.85;
+  max-width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sub-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  font-weight: 700;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0;
+}
+
+.empty {
+  padding: 16px 0;
+  opacity: 0.75;
+}
+
+/* Responsive */
+@media (max-width: 3200px) {
+  .subs-grid {
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 2400px) {
+  .subs-grid {
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 1600px) {
+  .subs-grid {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .subs-grid {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .subs-grid {
+    grid-template-columns: 1fr;
+  }
+}

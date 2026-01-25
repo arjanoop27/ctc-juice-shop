@@ -1,0 +1,90 @@
+<div class="ctc-submission-page" *ngIf="selected$ | async as selected; else loading">
+    <div class="main">
+        <div class="left">
+            <div class="left-header">
+                <div class="sub-title">{{ selected.title || 'Sub-Mission' }}</div>
+            </div>
+            <div class="story">
+                <div class="section-title">Description</div>
+                <ng-container *ngIf="narration$ | async as n; else noNarration">
+                    <div class="story-block" *ngIf="n?.roleTitle">
+                        <div class="label">Role</div>
+                        <div class="text strong">{{ n.roleTitle }}</div>
+                        <div class="text faint" *ngIf="n.roleBrief">{{ n.roleBrief }}</div>
+                    </div>
+
+                    <div class="story-block" *ngIf="n?.narrationText">
+                        <div class="label">Narration</div>
+                        <div class="text">{{ n.narrationText }}</div>
+                    </div>
+
+                    <div class="story-block" *ngIf="n?.context">
+                        <div class="label">Context</div>
+                        <div class="text">{{ n.context }}</div>
+                    </div>
+
+                    <div class="story-block" *ngIf="n?.target">
+                        <div class="label">Target</div>
+                        <div class="text">{{ n.target }}</div>
+                    </div>
+                </ng-container>
+
+                <ng-template #noNarration>
+                    <div class="text faint">No narration loaded for this sub-mission.</div>
+                </ng-template>
+            </div>
+            <div class="hints">
+                <div class="section-title">Hints</div>
+                <ng-container *ngIf="hintIndex$ | async as hints; else loadingHints">
+                    <mat-accordion class="hints-accordion">
+                        <mat-expansion-panel *ngFor="let h of hints" (opened)="onHintOpened(h)">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>Hint {{ h.order }}</mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <div class="hint-loading" *ngIf="hintLoading[h._id]">
+                                <mat-spinner diameter="22"></mat-spinner>
+                            </div>
+
+                            <div class="hint-text" *ngIf="!hintLoading[h._id]">
+                                <ng-container *ngIf="getCachedHint(h._id) as detail; else hintNotLoaded">
+                                    <div *ngIf="detail?.message; else hintError">{{ detail.message }}</div>
+                                    <ng-template #hintError>Failed to load hint.</ng-template>
+                                </ng-container>
+                                <ng-template #hintNotLoaded>Open to load this hint.</ng-template>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                    <div class="text faint" *ngIf="hints.length === 0">No hints available.</div>
+                </ng-container>
+                <ng-template #loadingHints>
+                    <div class="hint-loading">
+                        <mat-spinner diameter="22"></mat-spinner>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="right">
+            <div class="launchpad">
+                <div class="launchpad-body">
+                    <ng-container *ngIf="selected$ | async as n">
+                        <div class="placeholder">
+                            <div class="placeholder-title">Challenge placeholder</div>
+                            <div class="placeholder-sub">
+                                Associated Challenge ID:
+                                <span class="mono">{{ n.associatedChallengeId }}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="loading">
+        <mat-spinner diameter="36"></mat-spinner>
+    </div>
+</ng-template>

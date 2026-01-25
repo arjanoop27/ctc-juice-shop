@@ -1,0 +1,113 @@
+<div class="ctc-dashboard">
+    <div class="top">
+        <div class="briefing">
+            <div class="headline">
+                <div class="title">
+                    <div class="welcome" *ngIf="user$ | async as user">
+                        Welcome, <span class="username">{{ user.username }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="theme$ | async as theme; else loadingTheme">
+                <div class="subtitle">You’ve entered
+                    <span class="campaign-title"> {{ theme.name }}</span>
+                    built on the OWASP Juice Shop.
+                </div>
+                <div class="campaign-brief">
+                    <p class="msg" *ngFor="let msg of theme.onboardingMessages">
+                        {{ msg }}
+                    </p>
+                </div>
+            </ng-container>
+            <ng-template #loadingTheme>
+                <div class="loading-inline">
+                    <mat-spinner diameter="28"></mat-spinner>
+                </div>
+            </ng-template>
+        </div>
+        <div class="radar">
+            <mat-card class="radar-card">
+                <div class="radar-header">
+                    <div>
+                        <div class="radar-title">Campaign Progress</div>
+                        <div class="radar-sub">Overview by mission</div>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <!-- Radar Placeholder (SVG) -->
+                <div class="radar-wrap" *ngIf="radar$ | async as r">
+                    <div class="radar-svg">
+                        <!-- Simple radar-style SVG (placeholder) -->
+                        <svg viewBox="0 0 240 240" aria-label="Radar chart">
+                            <!-- grid rings -->
+                            <circle cx="120" cy="120" r="90" fill="none" stroke="rgba(255,255,255,0.12)"/>
+                            <circle cx="120" cy="120" r="70" fill="none" stroke="rgba(255,255,255,0.10)"/>
+                            <circle cx="120" cy="120" r="50" fill="none" stroke="rgba(255,255,255,0.08)"/>
+                            <circle cx="120" cy="120" r="30" fill="none" stroke="rgba(255,255,255,0.06)"/>
+                            <circle cx="120" cy="120" r="10" fill="none" stroke="rgba(255,255,255,0.05)"/>
+
+                            <!-- spokes (up to 6 for readability) -->
+                            <g stroke="rgba(255,255,255,0.10)">
+                                <line x1="120" y1="120" x2="120" y2="30"/>
+                                <line x1="120" y1="120" x2="198" y2="75"/>
+                                <line x1="120" y1="120" x2="198" y2="165"/>
+                                <line x1="120" y1="120" x2="120" y2="210"/>
+                                <line x1="120" y1="120" x2="42" y2="165"/>
+                                <line x1="120" y1="120" x2="42" y2="75"/>
+                            </g>
+
+                            <!-- polygon (fixed shape for now) -->
+                            <polygon
+                                    points="120,45 175,85 165,160 120,185 70,160 75,90"
+                                    fill="rgba(0, 255, 255, 0.15)"
+                                    stroke="rgba(0, 255, 255, 0.8)"
+                                    stroke-width="2"
+                            />
+                        </svg>
+                    </div>
+
+                    <!-- Labels list (keeps it informative even before real metrics) -->
+                    <div class="radar-labels">
+                        <div class="label-row" *ngFor="let label of r.labels | slice:0:6; let i = index">
+                            <span class="dot"></span>
+                            <span class="label">{{ label }}</span>
+                            <span class="value">{{ r.values[i] }}%</span>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="section-title">Available To Explore</div>
+
+        <ng-container *ngIf="missions$ | async as missions; else loadingMissions">
+            <div class="mission-grid">
+                <div class="mission-card" *ngFor="let m of missions" (click)="openMission(m)" role="button"
+                     tabindex="0">
+                    <img class="mission-img" [src]="missionImage(m)" alt="Mission image"/>
+                    <div class="overlay">
+                        <div class="mission-name">{{ m.title }}</div>
+                        <div class="meta">
+                            <span class="pill" *ngIf="m.status">{{ m.status }}</span>
+                            <span class="pill">Phase {{ m.order }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty" *ngIf="missions.length === 0">
+                No missions available.
+            </div>
+        </ng-container>
+
+        <ng-template #loadingMissions>
+            <div class="loading">
+                <mat-spinner diameter="32"></mat-spinner>
+            </div>
+        </ng-template>
+    </div>
+</div>

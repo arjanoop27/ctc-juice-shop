@@ -1,0 +1,76 @@
+<div class="mission-page">
+    <ng-container *ngIf="mission$ | async as mission; else loadingMission">
+        <div class="mission-hero">
+            <img class="hero-img" [src]="missionImage(mission)" alt="Mission image"/>
+
+            <div class="hero-overlay">
+                <div class="hero-title">{{ mission.title }}</div>
+                <div class="hero-sub" *ngIf="mission.subTitle">{{ mission.subTitle }}</div>
+
+                <div class="hero-meta">
+                    <span class="pill" *ngIf="mission.status">{{ mission.status }}</span>
+                    <span class="pill">Phase {{ mission.order }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #loadingMission>
+        <div class="loading">
+            <mat-spinner diameter="32"></mat-spinner>
+        </div>
+    </ng-template>
+
+    <!-- BOTTOM: sub-missions -->
+    <mat-card class="subs-card">
+        <div class="subs-header">
+            <div>
+                <div class="subs-title">Sub-Missions</div>
+                <div class="subs-subtitle">Choose a sub-mission to view narration and start</div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <ng-container *ngIf="subMissions$ | async as subs; else loadingSubs">
+            <div class="subs-grid">
+                <div
+                        class="sub-card"
+                        *ngFor="let sm of subs"
+                        (click)="openSubMission(sm)"
+                        [class.locked]="isLocked(sm)"
+                        role="button"
+                        tabindex="0"
+                >
+                    <img class="sub-img" [src]="subMissionImage(sm)" alt="Sub-mission image"/>
+
+                    <div class="sub-overlay">
+                        <div class="sub-top">
+                            <span class="pill">#{{ sm.order }}</span>
+                            <span class="pill" *ngIf="sm.status">{{ sm.status }}</span>
+                        </div>
+
+                        <div class="sub-title">{{ sm.title }}</div>
+                        <div class="sub-objective" *ngIf="sm.objective">{{ sm.objective }}</div>
+
+                        <div class="sub-meta">
+                            <span class="pill" *ngIf="sm.difficulty">Difficulty: {{ sm.difficulty }}</span>
+                            <span class="pill" *ngIf="sm.target">{{ sm.target }}</span>
+                        </div>
+                    </div>
+
+                    <div class="lock-overlay" *ngIf="isLocked(sm)">
+                        <mat-icon>lock</mat-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty" *ngIf="subs.length === 0">No sub-missions available.</div>
+        </ng-container>
+
+        <ng-template #loadingSubs>
+            <div class="loading">
+                <mat-spinner diameter="32"></mat-spinner>
+            </div>
+        </ng-template>
+    </mat-card>
+</div>
