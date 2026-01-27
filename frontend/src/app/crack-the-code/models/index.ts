@@ -11,4 +11,6 @@ export {default as CtcSubMission} from './../models/ctcSubMission';
 export {default as CtcSubMissionDetails} from './../models/ctcSubMissionDetails';
 export {default as CtcHint} from './../models/ctcHint';
 export {default as CtcCurrentChallenge} from './../models/ctcCurrentChallenge';
+export {CTC_CHALLENGE_REGISTRY} from './ctc-challenge-registry'
+export {CTC_CHALLENGE_FALLBACK} from './ctc-challenge-registry'
 
