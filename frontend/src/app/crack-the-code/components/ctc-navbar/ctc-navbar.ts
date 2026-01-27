@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
@@ -14,7 +14,7 @@ import {CtcNarrativeSelection} from "../../services/ctc-narrative-selection/ctc-
 
 @Component({
     selector: 'app-ctc-navbar',
-    imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule, NgOptimizedImage],
+    imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule],
     standalone: true,
     templateUrl: './ctc-navbar.html',
     styleUrl: './ctc-navbar.scss',
