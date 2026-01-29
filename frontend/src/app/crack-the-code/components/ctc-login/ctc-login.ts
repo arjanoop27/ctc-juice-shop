@@ -11,6 +11,7 @@ import {CtcUserAuth} from "../../services/ctc-user-auth/ctc-user-auth";
 import RegisterUserRequest from "../../models/registerUserRequest";
 import {LoginUserRequest} from "../../models";
 import {CtcSession} from "../../services/ctc-session/ctc-session";
+import {CtcTokenStore} from "../../services/ctc-token-store/ctc-token-store";
 
 @Component({
   selector: 'app-ctc-login',
@@ -27,7 +28,7 @@ export class CtcLogin {
   hideSignUpPassword = true;
   hideConfirmPassword = true;
 
-  constructor(private fb: FormBuilder, private router: Router, private ctcUserAuth: CtcUserAuth, private session: CtcSession) {
+  constructor(private fb: FormBuilder, private router: Router, private ctcUserAuth: CtcUserAuth, private session: CtcSession, private tokenStore: CtcTokenStore) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
@@ -122,6 +123,7 @@ export class CtcLogin {
   private handleLogin(payload: LoginUserRequest) {
     this.ctcUserAuth.login(payload).subscribe((token: string | null) => {
       if (token !== null) {
+        this.tokenStore.set(token);
         this.session.loadMe().subscribe((user) => {
           if (user) {
             this.redirectToHome()
