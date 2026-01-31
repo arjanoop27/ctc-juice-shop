@@ -14,7 +14,6 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import { challenges, notifications } from '../data/datacache'
 import { getCtcToken } from './requestContext'
 import { notifyChallengeSolved } from './ctcBffClient'
-
 const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {
@@ -31,7 +30,7 @@ export const solve = function (challenge: any, isRestore = false) {
   challenge.solved = true
   challenge.save().then(async (solvedChallenge: { difficulty: number, key: string, name: string, id: number }) => {
     const token = getCtcToken()
-      if (token) {
+      if (token && WHITELISTED_CHALLENGES.has(solvedChallenge.key)) {
         // fire-and-forget so we don't block UX
         notifyChallengeSolved(token, String(solvedChallenge.key)).catch((error: unknown) => {
           logger.error('CTC-BFF notify failed: ' + colors.red(utils.getErrorMessage(error)))
