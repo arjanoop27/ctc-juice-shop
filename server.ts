@@ -125,6 +125,7 @@ import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
+import { runWithContext } from './lib/requestContext'
 
 const app = express()
 const server = new http.Server(app)
@@ -202,6 +203,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use((req: Request, res: Response, next: NextFunction) => {
     req.url = req.url.replace(/[/]+/g, '/')
     next()
+  })
+
+  /* Token For CtcBff */
+  app.use((req, _res, next) => {
+    const token = req.get('x-ctc-token') ?? undefined
+    runWithContext({ ctcToken: token }, () => next())
   })
 
   /* Increase request counter metric for every request */

@@ -12,6 +12,8 @@ import * as accuracy from './accuracy'
 import { type Server } from 'socket.io'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import { challenges, notifications } from '../data/datacache'
+import { getCtcToken } from './requestContext'
+import { notifyChallengeSolved } from './ctcBffClient'
 
 const entities = new Entities()
 
@@ -28,6 +30,13 @@ export const solveIf = function (challenge: any, criteria: () => any, isRestore:
 export const solve = function (challenge: any, isRestore = false) {
   challenge.solved = true
   challenge.save().then(async (solvedChallenge: { difficulty: number, key: string, name: string, id: number }) => {
+    const token = getCtcToken()
+      if (token) {
+        // fire-and-forget so we don't block UX
+        notifyChallengeSolved(token, String(solvedChallenge.key)).catch((error: unknown) => {
+          logger.error('CTC-BFF notify failed: ' + colors.red(utils.getErrorMessage(error)))
+        })
+      }
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
@@ -75,7 +84,7 @@ export const sendCodingChallengeNotification = function (challenge: { key: strin
   }
 }
 
-export const notSolved = (challenge: any) => challenge && !challenge.solved
+export const notSolved = (challenge: any) => challenge && true
 
 export const findChallengeByName = (challengeName: string) => {
   for (const challenge of Object.values(challenges)) {
