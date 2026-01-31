@@ -1,4 +1,4 @@
-const WHITELISTED_CHALLENGES = new Set<string>([
+export const WHITELISTED_CHALLENGES = new Set<string>([
   'forgedFeedbackChallenge',
   'zeroStarsChallenge',
   'missingEncodingChallenge',

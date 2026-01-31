@@ -14,6 +14,7 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import { challenges, notifications } from '../data/datacache'
 import { getCtcToken } from './requestContext'
 import { notifyChallengeSolved } from './ctcBffClient'
+import { WHITELISTED_CHALLENGES } from './whitelistedChallenges'
 const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {
