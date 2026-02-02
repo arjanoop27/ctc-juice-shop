@@ -4,8 +4,8 @@ import {ContactComponent} from "../../contact/contact.component";
 import {PhotoWallComponent} from "../../photo-wall/photo-wall.component";
 
 export const CTC_CHALLENGE_REGISTRY: Record<string, Type<any>> = {
-    'bf3b45eb-b2be-4ab2-ae10-02ffd1c92995': ContactComponent,
-    '5610b29a-6e11-4ce8-b339-e7c3619d6065': PhotoWallComponent
+  'a7061bc2-e8b9-4e0e-92c8-96441faf85a2': ContactComponent,
+  'ab1c0eb2-1cc4-47f1-afb2-4ae9a5eb2b8e': PhotoWallComponent
 }
 
 export const CTC_CHALLENGE_FALLBACK = CtcUnderConstruction
