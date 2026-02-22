@@ -1,10 +1,8 @@
 export const WHITELISTED_CHALLENGES = new Set<string>([
-  'forgedFeedbackChallenge',
-  'zeroStarsChallenge',
-  'missingEncodingChallenge',
-  'weirdCryptoChallenge',
-  'basketAccessChallenge',
-  'loginAdminChallenge',
-  'forgedCouponChallenge',
-  'easterEggLevelTwoChallenge',
+    'forgedFeedbackChallenge',
+    'forgedReviewChallenge',
+    'zeroStarsChallenge',
+    'weirdCryptoChallenge',
+    'loginAdminChallenge',
+    'passwordRepeatChallenge'
 ])
