@@ -193,10 +193,10 @@ const routes: Routes = [
         path: 'wallet',
         component: WalletComponent
     },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
+    // {
+    //     path: 'login',
+    //     component: LoginComponent
+    // },
     {
         path: 'forgot-password',
         component: ForgotPasswordComponent
@@ -205,14 +205,14 @@ const routes: Routes = [
         path: 'recycle',
         component: RecycleComponent
     },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
-    {
-        path: 'search',
-        component: SearchResultComponent
-    },
+    // {
+    //     path: 'register',
+    //     component: RegisterComponent
+    // },
+    // {
+    //     path: 'search',
+    //     component: SearchResultComponent
+    // },
     {
         path: 'hacking-instructor',
         component: SearchResultComponent
@@ -294,7 +294,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        component: SearchResultComponent
+        redirectTo: 'ctc'
     }
 ]
 // vuln-code-snippet end adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
