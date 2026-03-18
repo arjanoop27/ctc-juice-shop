@@ -14,6 +14,7 @@ import {BehaviorSubject, combineLatest, Observable, startWith} from "rxjs";
 import {CtcChallenge} from "../../models";
 import {map} from "rxjs/operators";
 import {MatDivider} from "@angular/material/divider";
+import {CtcCurrentSelection} from "../../services/ctc-current-selection/ctc-current-selection";
 
 @Component({
   selector: 'app-ctc-home-vanilla',
@@ -26,6 +27,7 @@ export class CtcHomeVanilla {
   private readonly challengesApi = inject(CtcChallenges)
   private readonly router = inject(Router)
   private readonly search$ = new BehaviorSubject<string>('')
+  private readonly currentChallenge = inject(CtcCurrentSelection)
 
   challenges$: Observable<CtcChallenge[]> = this.challengesApi.getAllChallenges()
 
@@ -57,7 +59,7 @@ export class CtcHomeVanilla {
       const hacking = challenges.filter(c => !isCoding(c))
 
       const codingSolved = 0
-      const hackingSolved = 2
+      const hackingSolved = challenges.filter(c => c.status === 'completed').length;
 
       const pct = (num: number, den: number) => den === 0 ? 0 : Math.round((num / den) * 100)
 
@@ -84,6 +86,10 @@ export class CtcHomeVanilla {
   }
 
   startChallenge(challenge: CtcChallenge) {
-    console.log('Start challenge:', challenge._id, challenge.name, challenge)
+    this.currentChallenge.setCurrentChallenge({
+      challengeId: challenge._id,
+      ctcMode: 'vanilla'
+    })
+    this.router.navigate(['/ctc/challenge'])
   }
 }

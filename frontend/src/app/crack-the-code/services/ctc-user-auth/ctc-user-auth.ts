@@ -4,12 +4,14 @@ import {environment} from "../../../../environments/environment";
 import {Observable, of} from "rxjs";
 import {catchError, map} from "rxjs/operators";
 import {CtcApiResponse, LoginSuccessResponse, LoginUserRequest, RegisterUserRequest, UserDetail} from "../../models";
+import {CtcTokenStore} from "../ctc-token-store/ctc-token-store";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CtcUserAuth {
   private readonly http = inject(HttpClient);
+  private readonly tokenStore = inject(CtcTokenStore);
 
   private readonly ctcBffServer = environment.ctcBffServer
   private readonly host = this.ctcBffServer + '/ctc/api/auth'
@@ -47,6 +49,7 @@ export class CtcUserAuth {
       .pipe(
         map((res) => {
           if (!res.ok) throw new Error('Unauthorized')
+          if (!this.tokenStore.snapshot) this.tokenStore.set(res.data.token)
           return res.data
         })
       )

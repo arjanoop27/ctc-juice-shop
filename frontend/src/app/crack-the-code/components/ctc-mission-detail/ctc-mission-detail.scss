@@ -168,6 +168,16 @@
   font-weight: 700;
 }
 
+.done-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  font-weight: 700;
+}
+
 .loading {
   display: flex;
   justify-content: center;

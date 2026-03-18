@@ -3,32 +3,31 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Injectable, inject } from '@angular/core'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { TranslateService } from '@ngx-translate/core'
+import {Injectable, inject} from '@angular/core'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {TranslateService} from '@ngx-translate/core'
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SnackBarHelperService {
-  private readonly translateService = inject(TranslateService);
-  private readonly snackBar = inject(MatSnackBar);
+    private readonly translateService = inject(TranslateService);
+    private readonly snackBar = inject(MatSnackBar);
 
-
-  open (message: string, cssClass?: string) {
-    this.translateService.get(message).subscribe({
-      next: (translatedMessage) => {
-        this.snackBar.open(translatedMessage, 'X', {
-          duration: 5000,
-          panelClass: [cssClass, 'mat-body']
+    open(message: string, cssClass?: string) {
+        this.translateService.get(message).subscribe({
+            next: (translatedMessage) => {
+                // this.snackBar.open(translatedMessage, 'X', {
+                //   duration: 5000,
+                //   panelClass: [cssClass, 'mat-body']
+                // })
+            },
+            error: () => {
+                this.snackBar.open(message, 'X', {
+                    duration: 5000,
+                    panelClass: [cssClass, 'mat-body']
+                })
+            }
         })
-      },
-      error: () => {
-        this.snackBar.open(message, 'X', {
-          duration: 5000,
-          panelClass: [cssClass, 'mat-body']
-        })
-      }
-    })
-  }
+    }
 }

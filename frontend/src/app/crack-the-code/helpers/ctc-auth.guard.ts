@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core'
-import { CanActivate, Router, UrlTree } from '@angular/router'
-import { Observable, of } from 'rxjs'
-import { map } from 'rxjs/operators'
+import {Injectable} from '@angular/core'
+import {CanActivate, Router, UrlTree} from '@angular/router'
+import {Observable, of} from 'rxjs'
+import {map} from 'rxjs/operators'
 import {CtcSession} from "../services/ctc-session/ctc-session";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class CtcAuthGuard implements CanActivate {
-  constructor(private readonly session: CtcSession, private readonly router: Router) {}
+  constructor(private readonly session: CtcSession, private readonly router: Router) {
+  }
 
   canActivate(): Observable<boolean | UrlTree> {
     const snap = this.session.snapshot

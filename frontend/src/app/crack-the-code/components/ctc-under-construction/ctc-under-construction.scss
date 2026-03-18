@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.uc-page {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.uc-image {
+  max-height: 75%;
+  max-width: 75%;
+
+  height: auto;
+  width: auto;
+
+  object-fit: contain;
+  display: block;
+}

@@ -6,4 +6,5 @@ export default interface CtcChallenge {
   difficulty?: number
   tags: string[]
   solved?: boolean;
+  status?: 'completed' | 'active';
 }

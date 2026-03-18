@@ -52,6 +52,7 @@ import {
     CtcMissionDetail
 } from "./crack-the-code/components/ctc-mission-detail/ctc-mission-detail";
 import {CtcSubmission} from "./crack-the-code/components/ctc-submission/ctc-submission";
+import {CtcVanillaMission} from "./crack-the-code/components/ctc-vanilla-mission/ctc-vanilla-mission";
 
 const loadFaucetModule = async () => {
     const module = await import('./faucet/faucet.module')
@@ -96,7 +97,13 @@ const routes: Routes = [
                 path: 'submission',
                 component: CtcSubmission,
                 canActivate: [CtcAuthGuard]
+            },
+            {
+                path: 'challenge',
+                component: CtcVanillaMission,
+                canActivate: [CtcAuthGuard]
             }
+
         ]
     },
     { // vuln-code-snippet neutral-line adminSectionChallenge
@@ -186,10 +193,10 @@ const routes: Routes = [
         path: 'wallet',
         component: WalletComponent
     },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
+    // {
+    //     path: 'login',
+    //     component: LoginComponent
+    // },
     {
         path: 'forgot-password',
         component: ForgotPasswordComponent
@@ -198,14 +205,14 @@ const routes: Routes = [
         path: 'recycle',
         component: RecycleComponent
     },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
-    {
-        path: 'search',
-        component: SearchResultComponent
-    },
+    // {
+    //     path: 'register',
+    //     component: RegisterComponent
+    // },
+    // {
+    //     path: 'search',
+    //     component: SearchResultComponent
+    // },
     {
         path: 'hacking-instructor',
         component: SearchResultComponent
@@ -287,7 +294,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        component: SearchResultComponent
+        redirectTo: 'ctc'
     }
 ]
 // vuln-code-snippet end adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
