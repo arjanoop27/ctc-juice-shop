@@ -13,50 +13,57 @@ import {CtcNarrativeSelection} from "../../services/ctc-narrative-selection/ctc-
 import {CtcCurrentSelection} from "../../services/ctc-current-selection/ctc-current-selection";
 
 @Component({
-    selector: 'app-ctc-mission-detail',
-    imports: [CommonModule, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDividerModule],
-    standalone: true,
-    templateUrl: './ctc-mission-detail.html',
-    styleUrl: './ctc-mission-detail.scss',
+  selector: 'app-ctc-mission-detail',
+  imports: [CommonModule, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDividerModule],
+  standalone: true,
+  templateUrl: './ctc-mission-detail.html',
+  styleUrl: './ctc-mission-detail.scss',
 })
 export class CtcMissionDetail {
-    private readonly router = inject(Router)
-    private readonly api = inject(CtcNarrative)
-    private readonly selection = inject(CtcNarrativeSelection)
-    private readonly currentChallenge = inject(CtcCurrentSelection)
+  private readonly router = inject(Router)
+  private readonly api = inject(CtcNarrative)
+  private readonly selection = inject(CtcNarrativeSelection)
+  private readonly currentChallenge = inject(CtcCurrentSelection)
 
-    private readonly mission: CtcMission | null =
-        (this.router.getCurrentNavigation()?.extras.state as any)?.mission
-        ?? (history.state?.mission ?? null)
+  private readonly mission: CtcMission | null =
+    (this.router.getCurrentNavigation()?.extras.state as any)?.mission
+    ?? (history.state?.mission ?? null)
 
-    mission$: Observable<CtcMission | null> = of(this.mission)
+  mission$: Observable<CtcMission | null> = of(this.mission)
 
-    subMissions$: Observable<CtcSubMission[]> = of(this.mission).pipe(
-        switchMap((m) => {
-            if (!m?._id) return of([])
-            return this.api.getSubMissions(m._id)
-        })
-    )
+  subMissions$: Observable<CtcSubMission[]> = of(this.mission).pipe(
+    switchMap((m) => {
+      if (!m?._id) return of([])
+      return this.api.getSubMissions(m._id)
+    })
+  )
 
-    openSubMission(sm: CtcSubMission): void {
-        if (this.isLocked(sm)) return
-        this.selection.setSubMission(sm)
-        this.currentChallenge.setCurrentChallenge({challengeId: sm.associatedChallengeId, ctcMode: 'narrative'})
-        this.router.navigate(['/ctc/submission'])
-    }
+  openSubMission(sm: CtcSubMission): void {
+    if (this.isLocked(sm)) return
+    this.selection.setSubMission(sm)
+    this.currentChallenge.setCurrentChallenge({
+      challengeId: sm.associatedChallengeId,
+      ctcMode: 'narrative'
+    })
+    this.router.navigate(['/ctc/submission'])
+  }
 
-    isLocked(sm: CtcSubMission): boolean {
-        return (sm.status || '').toLowerCase() === 'locked'
-    }
+  isLocked(sm: CtcSubMission): boolean {
+    return (sm.status || '').toLowerCase() === 'locked'
+  }
 
-    missionImage(m: CtcSubMission | null): string {
-        if (!m?.image) return '../../../../assets/public/images/crack-the-code/mission-with-sub-placeholder.png'
-        return m.image.trim().length > 0 ? m.image : '../../../../assets/public/images/crack-the-code/mission-with-sub-placeholder.png'
-    }
+  isCompleted(sm: CtcSubMission): boolean {
+    return (sm.status || '').toLowerCase() === 'completed'
+  }
 
-    subMissionImage(sm: CtcSubMission): string {
-        return sm.image && sm.image.trim().length > 0
-            ? sm.image
-            : '../../../../assets/public/images/crack-the-code/sub-mission-place-holder.png'
-    }
+  missionImage(m: CtcSubMission | null): string {
+    if (!m?.image) return '../../../../assets/public/images/crack-the-code/mission-with-sub-placeholder.png'
+    return m.image.trim().length > 0 ? m.image : '../../../../assets/public/images/crack-the-code/mission-with-sub-placeholder.png'
+  }
+
+  subMissionImage(sm: CtcSubMission): string {
+    return sm.image && sm.image.trim().length > 0
+      ? sm.image
+      : '../../../../assets/public/images/crack-the-code/sub-mission-place-holder.png'
+  }
 }
