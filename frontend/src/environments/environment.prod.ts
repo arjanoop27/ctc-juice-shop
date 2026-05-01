@@ -6,5 +6,5 @@
 export const environment = {
   production: true,
   hostServer: '.',
-  ctcBffServer: `http://${window.location.hostname}:4000`
+  ctcBffServer: `.`
 }
