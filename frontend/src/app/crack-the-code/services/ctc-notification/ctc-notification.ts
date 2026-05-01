@@ -17,14 +17,15 @@ export class CtcNotification {
 
     connect(accessToken?: string) {
 
-        this.socket = io(this.ctcBffServer, {
+        this.socket = io(window.location.origin, {
+            path: '/ctc/socket.io',
             transports: ['websocket'],
             withCredentials: true,
             auth: accessToken ? {token: accessToken} : undefined,
         });
 
         this.socket.on('connect', () => {
-            console.log('WS connected');
+            console.log('CTC WS connected');
         });
 
         this.socket.on('challengeSolved', (msg) => {
