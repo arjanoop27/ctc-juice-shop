@@ -4,7 +4,7 @@
  */
 
 export const environment = {
-    production: true,
-    hostServer: '.',
-    ctcBffServer: 'http://localhost:4000'
+  production: true,
+  hostServer: '.',
+  ctcBffServer: `.`
 }
